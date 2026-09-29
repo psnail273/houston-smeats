@@ -1,0 +1,31 @@
+.route { position: relative; padding: 110px 0 120px; }
+.map { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.map path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.ghost { stroke: var(--route-ghost); stroke-width: 4; stroke-dasharray: 10 14; }
+.edge { stroke: var(--river-edge); stroke-width: 96px; }
+.river { stroke: var(--river); stroke-width: 66px; }
+.boat {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: clamp(110px, 12vw, 170px);
+  filter: var(--boat-shadow);
+  pointer-events: none;
+  will-change: transform;
+}
+.boat svg { display: block; width: 100%; height: auto; animation: rock 2.4s ease-in-out infinite; }
+@keyframes rock {
+  50% { rotate: 3deg; translate: 0 -3px; }
+}
+
+/* The cards zigzag down the river. */
+.cards { position: relative; z-index: 2; grid-template-columns: 1fr; gap: clamp(70px, 10vw, 150px); }
+.cards > li { width: min(430px, 100%); justify-self: start; }
+.cards > li:nth-child(even) { justify-self: end; }
+
+@media (max-width: 760px) {
+  .edge { stroke-width: 64px; }
+  .river { stroke-width: 44px; }
+  .cards > li { justify-self: stretch !important; }
+}

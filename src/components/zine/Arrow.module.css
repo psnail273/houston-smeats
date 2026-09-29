@@ -1,0 +1,13 @@
+.arrow path {
+  stroke: currentColor;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.draw path {
+  stroke-dasharray: 1;
+  animation: draw .6s ease-out 1.6s both;
+}
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+}

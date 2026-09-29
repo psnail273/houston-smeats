@@ -1,0 +1,25 @@
+.tape {
+  margin: 44px -6%;
+  padding: 14px 0;
+  overflow: hidden;
+  border-block: 3px solid var(--line);
+  font-size: clamp(18px, 2.4vw, 30px);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.gold { background: var(--highlight); color: var(--dark); rotate: -2deg; }
+.blue { background: var(--ink-2); color: var(--on-ink); rotate: 1.5deg; }
+.red { background: var(--ink-1); color: var(--on-ink); rotate: -1.5deg; }
+.ink { background: var(--fg); color: var(--paper); rotate: 2deg; }
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: marquee linear infinite;
+}
+.reverse { animation-direction: reverse; }
+.half { display: flex; flex: none; }
+.half > span { flex: none; padding-right: .4em; }
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}

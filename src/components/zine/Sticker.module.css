@@ -1,0 +1,68 @@
+.sticker {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: 3px solid var(--line);
+  background: var(--sticker-bg);
+  color: var(--sticker-fg);
+  box-shadow: 4px 5px 0 var(--shade);
+  font-size: clamp(13px, 1.5vw, 19px);
+  line-height: 1;
+  pointer-events: auto;
+  cursor: pointer;
+  translate: -50% -50%;
+  rotate: calc(var(--r) * 1deg);
+}
+.sticker:hover { scale: 1.06; }
+.sticker.peeling { animation: peel .42s ease-in forwards; }
+@keyframes peel {
+  to { opacity: 0; scale: .55; rotate: calc(var(--r) * 1deg + 30deg); translate: -50% -160%; }
+}
+.sticker svg { flex: none; width: 1.5em; height: auto; }
+
+.pill { border-radius: 999px; }
+.square { border-radius: 6px; }
+.circle {
+  flex-direction: column;
+  justify-content: center;
+  width: clamp(78px, 8vw, 104px);
+  height: clamp(78px, 8vw, 104px);
+  padding: 8px;
+  border-radius: 50%;
+  font-size: clamp(12px, 1.3vw, 16px);
+  text-align: center;
+}
+.circle svg { width: 52%; }
+.tape {
+  padding: 6px 26px;
+  border: 0;
+  box-shadow: none;
+  font-size: clamp(20px, 2.6vw, 32px);
+  opacity: .96;
+  clip-path: polygon(3% 0, 97% 5%, 100% 50%, 96% 100%, 2% 95%, 0 50%);
+}
+.burst {
+  flex-direction: column;
+  justify-content: center;
+  width: clamp(96px, 10vw, 130px);
+  height: clamp(96px, 10vw, 130px);
+  padding: 14px;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  text-align: center;
+  filter: drop-shadow(2.5px 0 0 var(--line)) drop-shadow(-2.5px 0 0 var(--line)) drop-shadow(0 2.5px 0 var(--line))
+    drop-shadow(0 -2.5px 0 var(--line)) drop-shadow(4px 5px 0 var(--shade));
+}
+.burst::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--sticker-bg);
+  clip-path: polygon(50% 0, 61% 16%, 79% 7%, 78% 27%, 98% 30%, 86% 46%, 100% 62%, 80% 68%, 84% 90%, 63% 83%, 50% 100%, 37% 83%, 16% 90%, 20% 68%, 0 62%, 14% 46%, 2% 30%, 22% 27%, 21% 7%, 39% 16%);
+}
+.burst > * { position: relative; }
+.icon-arch path { stroke: currentColor; }

@@ -1,0 +1,28 @@
+.mast {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 4px solid var(--line);
+  background: var(--paper);
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ink-1);
+  font-size: 28px;
+  text-decoration: none;
+  -webkit-text-stroke: 1.5px var(--line);
+  paint-order: stroke fill;
+  rotate: -2deg;
+}
+.logoFleur { width: 30px; height: 30px; color: var(--ink-2); }
+.line { flex: 1; margin: 0; font-size: 11px; letter-spacing: .2em; text-align: center; text-transform: uppercase; }
+
+@media (max-width: 760px) {
+  .line { display: none; }
+}

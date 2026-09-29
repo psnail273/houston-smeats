@@ -1,0 +1,45 @@
+.polaroid {
+  --r: -4;
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 16px 16px 64px;
+  border: 2px solid var(--c-ink);
+  background: #fff;
+  color: var(--paper-ink);
+  box-shadow: 0 20px 40px rgb(0 0 0 / .16), 7px 7px 0 var(--shade);
+  font: inherit;
+  cursor: pointer;
+  rotate: calc(var(--r) * 1deg);
+  transition: rotate .3s cubic-bezier(.3, 1.6, .5, 1), translate .3s;
+}
+.polaroid:hover { rotate: calc(var(--r) * 1deg + 3deg); translate: 0 -6px; }
+.polaroid::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -16px;
+  left: 50%;
+  width: 130px;
+  height: 34px;
+  translate: -50% 0;
+  rotate: 3deg;
+  background: rgb(214 40 58 / .75);
+}
+.picture {
+  display: grid;
+  place-items: end center;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 2px solid var(--c-ink);
+  background: radial-gradient(circle, rgb(31 69 181 / .28) 32%, transparent 34%) 0 0 / 10px 10px, linear-gradient(#ffe08a, #ff9d52);
+}
+.picture > * { grid-area: 1 / 1; }
+.developing { animation: develop 1.8s ease-out both; }
+@keyframes develop {
+  0% { filter: brightness(.15) sepia(1) contrast(.6) blur(2px); }
+  45% { filter: brightness(.7) sepia(.6) blur(.5px); }
+  100% { filter: none; }
+}
+.caption { position: absolute; left: 0; right: 0; bottom: 18px; font-size: 22px; text-align: center; }

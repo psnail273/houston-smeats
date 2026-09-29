@@ -1,0 +1,214 @@
+/* The riso-zine design system: color tokens, the day/night print switch, and
+   shared utilities. Component styles live beside each component as CSS Modules. */
+
+.zine {
+  /* Brand inks — the same in both prints. */
+  --c-red: #d6283a;
+  --c-blue: #1f45b5;
+  --c-gold: #ffc72c;
+  --c-ink: #15110f;
+  --c-paper: #f6eedd;
+  --c-pink: #ff4fa3;
+  --c-cyan: #3fd1ff;
+  --c-yellow: #ffe95c;
+  --c-green: #3dffa8;
+  --c-violet: #8f7bff;
+  --c-nite: #15131f;
+  --c-cream: #f5ecd9;
+  --c-plum: #1a1122;
+  --paper-ink: var(--c-ink); /* text on paper pieces (cards, receipts, notes) in either print */
+
+  /* The page prints in day or night ink: it follows the OS until the visitor flips
+     the coin (data-print). Colors pick their print with light-dark(day, night). */
+  color-scheme: light dark;
+  --paper: light-dark(var(--c-paper), var(--c-nite));
+  --fg: light-dark(var(--c-ink), var(--c-cream));
+  --line: light-dark(var(--c-ink), var(--c-cream));
+  --shade: light-dark(var(--c-ink), var(--c-pink));
+  --dark: light-dark(var(--c-ink), var(--c-nite));
+  --on-ink: light-dark(#fff, var(--c-nite));
+  --ink-1: light-dark(var(--c-red), var(--c-pink));
+  --ink-2: light-dark(var(--c-blue), var(--c-cyan));
+  --accent: light-dark(var(--c-red), var(--c-yellow));
+  --on-accent: light-dark(#fff, var(--c-nite));
+  --highlight: light-dark(var(--c-gold), var(--c-yellow));
+  --stamp: light-dark(#c8102e, #ff5a6e);
+  --card: light-dark(#fffefa, #211d31);
+  --card-fg: light-dark(var(--c-ink), var(--c-cream));
+  --now-tint: light-dark(#fff2c4, #173b30);
+  --now-tag: light-dark(var(--c-gold), var(--c-green));
+  --now-tag-fg: light-dark(var(--c-ink), var(--c-nite));
+  --next-tint: light-dark(#dfe6ff, #232a55);
+  --next-tag: light-dark(var(--c-blue), var(--c-violet));
+  --next-tag-fg: light-dark(#fff, var(--c-nite));
+  --kin-a1: light-dark(var(--c-red), var(--c-pink));
+  --kin-b1: light-dark(var(--c-blue), var(--c-cyan));
+  --kin-a2: light-dark(var(--c-blue), var(--c-yellow));
+  --kin-b2: light-dark(var(--c-gold), var(--c-pink));
+  --kin-a3: light-dark(var(--c-red), var(--c-green));
+  --kin-b3: light-dark(var(--c-gold), var(--c-violet));
+  --kin-a4: light-dark(var(--c-ink), #ff8f3d);
+  --kin-b4: light-dark(var(--c-red), var(--c-cyan));
+  --field: light-dark(var(--c-red), var(--c-plum));
+  --field-dot: light-dark(rgb(143 16 34 / .32), rgb(255 79 163 / .2));
+  --field-fleur: light-dark(#fff, rgb(63 209 255 / .5));
+  --star: light-dark(transparent, var(--c-cream));
+  --river: light-dark(var(--c-blue), #2340d8);
+  --river-edge: light-dark(#fff, var(--c-cream));
+  --river-mis: light-dark(rgb(11 31 99 / .26), rgb(63 209 255 / .16));
+  --river-glow: light-dark(transparent, var(--c-cyan));
+  --route-ghost: light-dark(rgb(31 69 181 / .35), rgb(63 209 255 / .35));
+  --boat-shadow: drop-shadow(4px 5px 0 light-dark(rgb(21 17 15 / .3), transparent)) drop-shadow(0 0 14px light-dark(transparent, rgb(255 233 92 / .5)));
+  --hero-ink: light-dark(#fff, var(--c-cream));
+  --label-bg: light-dark(var(--c-paper), #1c1a2b);
+  --lens: light-dark(rgb(255 255 255 / .16), rgb(255 233 92 / .14));
+  --secret-shadow: light-dark(var(--c-ink), transparent);
+  --secret-1: light-dark(#fff, var(--c-green));
+  --secret-2: light-dark(#fff, var(--c-yellow));
+  --secret-3: light-dark(#fff, var(--c-cyan));
+  --secret-4: light-dark(#fff, var(--c-pink));
+  --tip-bg: light-dark(var(--c-blue), var(--c-pink));
+  --tip-fg: light-dark(var(--c-gold), var(--c-nite));
+  --flood: light-dark(var(--c-plum), var(--c-red)); /* the other print's field color */
+  --scrim: light-dark(rgb(251 241 220 / .72), rgb(12 10 22 / .74));
+  --note-shadow: 0 16px 18px -12px light-dark(rgb(0 0 0 / .4), transparent), 0 0 0 2px light-dark(transparent, var(--c-cream)), 7px 7px 0 light-dark(transparent, var(--c-pink));
+  --note-1: light-dark(#fff, var(--c-yellow));
+  --note-2: light-dark(#ffe38f, #ff9fd0);
+  --note-3: light-dark(#cfdcff, #8dffcc);
+  --note-4: light-dark(#ffc9cf, #b3c1ff);
+  --note-5: light-dark(#ffd2a8, #ffb36b);
+  --grain: light-dark(rgb(26 18 16 / .5), rgb(255 243 224 / .22));
+
+  /* Non-color switches (light-dark() only takes colors); the night values are below. */
+  --night: 0;
+  --blend: multiply;
+  --show-day: inline;
+  --show-night: none;
+
+  /* Type roles; the font variables come from fonts.ts. */
+  --f-display: var(--f-bagel);
+  --f-hand: var(--f-marker);
+  --f-script: var(--f-caveat);
+  --f-body: var(--f-spacemono);
+  --f-kin: var(--f-anybody);
+  --f-stamp: var(--f-rubikmono);
+
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+  padding-bottom: 24px;
+  background: var(--paper);
+  color: var(--fg);
+  font-family: var(--f-body), ui-monospace, monospace;
+  -webkit-font-smoothing: antialiased;
+}
+.zine[data-print="day"] {
+  color-scheme: light;
+}
+.zine[data-print="night"] {
+  color-scheme: dark;
+  --night: 1;
+  --blend: screen;
+  --show-day: none;
+  --show-night: inline;
+}
+@media (prefers-color-scheme: dark) {
+  .zine:not([data-print="day"]) {
+    --night: 1;
+    --blend: screen;
+    --show-day: none;
+    --show-night: inline;
+  }
+}
+
+/* Paper grain over everything. */
+.zine::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  background: var(--grain);
+  mask: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22220%22%20height%3D%22220%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.85%22%20numOctaves%3D%223%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%201.5%200%200%200%20-.62%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url(%23n)%22%2F%3E%3C%2Fsvg%3E") 0 0 / 220px;
+}
+.zine ::selection { background: var(--highlight); color: var(--line); }
+.zine :focus-visible { outline: 3px dashed var(--ink-2); outline-offset: 4px; }
+.zine button { -webkit-tap-highlight-color: transparent; }
+
+/* Type roles */
+.z-display { font-family: var(--f-display); font-weight: 400; }
+.z-hand { font-family: var(--f-hand); }
+.z-script { font-family: var(--f-script); }
+.z-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
+
+/* Riso type: fill in ink 1, a misregistered outline in ink 2. */
+.z-riso { position: relative; display: inline-block; color: var(--ink-1); mix-blend-mode: var(--blend); }
+.z-riso::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  -webkit-text-stroke: .024em var(--ink-2);
+  mix-blend-mode: var(--blend);
+  translate: .055em .05em;
+  pointer-events: none;
+  animation: z-jitter 3.2s steps(1) infinite;
+}
+@keyframes z-jitter { 0%, 100% { translate: .055em .05em; } 33% { translate: .062em .042em; } 66% { translate: .048em .058em; } }
+
+/* Buttons */
+.z-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border: 3px solid var(--line);
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 5px 5px 0 var(--shade);
+  font-size: 19px;
+  text-decoration: none;
+  cursor: pointer;
+  rotate: -1.5deg;
+  transition: translate .12s, box-shadow .12s;
+}
+.z-btn:hover { translate: -2px -2px; box-shadow: 7px 7px 0 var(--shade); }
+.z-btn:active { translate: 3px 3px; box-shadow: 2px 2px 0 var(--shade); }
+.z-btn:disabled { background: #d9d0bf; color: #80776b; cursor: not-allowed; box-shadow: 3px 3px 0 var(--shade); translate: none; }
+.z-btn-sm { padding: 8px 14px; font-size: 14px; box-shadow: 3px 3px 0 var(--shade); }
+.z-link-btn { background: none; border: 0; font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; color: inherit; }
+
+/* Motion utilities: rise into view on scroll; pop in (set --pop-dur / --pop-delay). */
+@supports (animation-timeline: view()) {
+  .z-reveal { animation: z-rise linear both; animation-timeline: view(); animation-range: entry 0% cover 32%; }
+}
+@keyframes z-rise { from { opacity: 0; translate: 0 100px; rotate: calc(var(--r, 0) * 1deg - 9deg); scale: .9; } }
+.z-pop { animation: z-pop var(--pop-dur, .45s) cubic-bezier(.2, .9, .25, 1) var(--pop-delay, 0s) backwards; }
+@keyframes z-pop { 0% { opacity: 0; scale: 2.3; } 55% { opacity: 1; scale: .9; } 78% { scale: 1.05; } 100% { scale: 1; } }
+
+/* Content that depends on the print (see DayNight) or on having a hover pointer. */
+.z-day { display: var(--show-day); }
+.z-night { display: var(--show-night); }
+.z-touch-only { display: none; }
+@media (hover: none) {
+  .z-hover-only { display: none; }
+  .z-touch-only { display: inline; }
+}
+
+/* The ink that floods between prints (flood.ts). */
+.z-ink {
+  position: fixed;
+  inset: 0;
+  z-index: 85;
+  pointer-events: none;
+  background: radial-gradient(circle, rgb(0 0 0 / .14) 30%, transparent 32%) 0 0 / 12px 12px;
+  background-color: var(--flood);
+}
+
+@media (max-width: 760px) {
+  .zine::after { opacity: .6; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .zine *, .zine *::before, .zine *::after { animation: none !important; transition: none !important; }
+}

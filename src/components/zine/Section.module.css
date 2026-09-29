@@ -1,0 +1,19 @@
+.section {
+  margin: 0 auto;
+  padding: 40px 16px 20px;
+  scroll-margin-top: 10px;
+}
+.title {
+  position: relative;
+  margin: 0 0 20px;
+  font-size: clamp(46px, 8.4vw, 128px);
+  line-height: .92;
+  text-align: center;
+  text-wrap: balance;
+}
+.kicker {
+  margin: -4px 0 44px;
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 600;
+  text-align: center;
+}

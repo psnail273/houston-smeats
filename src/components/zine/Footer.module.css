@@ -1,0 +1,23 @@
+.footer {
+  padding: 40px 0 24px;
+  overflow: hidden;
+  text-align: center;
+}
+.word {
+  padding: 0 2vw .06em;
+  font-size: min(18.5vw, 300px);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.row {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 26px;
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}

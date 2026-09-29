@@ -1,0 +1,32 @@
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: 56px;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 90px 16px 20px;
+}
+.arch { width: 96%; align-self: end; margin-bottom: 10%; opacity: .9; }
+.letter {
+  --r: 1.5;
+  position: relative;
+  padding: 40px 30px 30px 66px;
+  border: 2px solid var(--line);
+  background: repeating-linear-gradient(#fffdf6 0 35px, #b9c8f2 35px 36px);
+  color: var(--paper-ink);
+  box-shadow: 8px 8px 0 var(--ink-2);
+  font-size: clamp(22px, 2.3vw, 28px);
+  font-weight: 500;
+  line-height: 36px;
+  rotate: calc(var(--r) * 1deg);
+}
+.letter::before { content: ""; position: absolute; left: 46px; top: 0; bottom: 0; width: 2px; background: var(--c-red); }
+.letter p { margin: 0 0 36px; }
+.letter .sig { margin: 0; font-size: 1.4em; }
+.fleur { position: absolute; right: 22px; top: -26px; width: 64px; height: 64px; color: var(--highlight); filter: drop-shadow(3px 3px 0 var(--c-ink)); rotate: 12deg; }
+
+@media (max-width: 960px) {
+  .section { grid-template-columns: 1fr; gap: 44px; }
+  .polaroid { max-width: 420px; margin: 0 auto; }
+}

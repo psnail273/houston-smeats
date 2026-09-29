@@ -1,0 +1,82 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.card {
+  position: relative;
+  rotate: calc(var(--r) * 1deg);
+}
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  top: -17px;
+  left: 50%;
+  width: 120px;
+  height: 32px;
+  translate: -50% 0;
+  rotate: -4deg;
+  background: rgb(255 199 44 / .85);
+  border-inline: 2px dashed rgb(26 18 16 / .15);
+  pointer-events: none;
+}
+.flip {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--paper-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  perspective: 1400px;
+  transition: translate .3s cubic-bezier(.3, 1.6, .5, 1);
+}
+.flip:hover { translate: 0 -8px; }
+.front,
+.back {
+  display: block;
+  padding: 24px 22px 22px;
+  border: 3px solid var(--line);
+  box-shadow: 8px 8px 0 var(--shade);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform .65s cubic-bezier(.3, 1.25, .5, 1);
+}
+.front { background: var(--paper-color); }
+.back {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  background: var(--highlight);
+  text-align: center;
+  transform: rotateY(180deg);
+}
+.flipped .front { transform: rotateY(-180deg); }
+.flipped .back { transform: rotateY(0deg); }
+.num {
+  display: block;
+  font-size: 112px;
+  line-height: .8;
+  color: transparent;
+  -webkit-text-stroke: 3px var(--paper-ink);
+  background: radial-gradient(circle, var(--ink-1) 36%, transparent 38%) 0 0 / 8px 8px;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.art { display: block; width: 78%; max-width: 240px; margin: 10px auto 14px; }
+.art svg { display: block; width: 100%; height: auto; overflow: visible; }
+.title { display: block; margin: 0 0 8px; font-size: 28px; line-height: 1; }
+.body { display: block; font-size: 15px; line-height: 1.5; }
+.more { display: block; margin-top: 14px; font-size: 14px; opacity: .7; }
+.tipLabel { font-size: 18px; }
+.tip { font-size: clamp(24px, 2.4vw, 32px); font-weight: 600; line-height: 1.05; }

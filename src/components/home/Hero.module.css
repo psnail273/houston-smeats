@@ -1,0 +1,220 @@
+/* Layers inside the hero: field (background) → deco −2 → rivers −1 → hidden notes 0 → content 1 → coin 2. */
+
+.hero,
+.edge {
+  --tilt: 3.49vw; /* how far the edge tape rises across the screen: tan(2deg), matching the gold tape's -2deg */
+}
+.hero {
+  --coin: clamp(100px, 9.5vw, 150px);
+  --river-scale: 1;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  min-height: min(100svh, 960px);
+  padding: 44px 16px calc(var(--tilt) + 124px);
+  overflow: hidden;
+  background: radial-gradient(circle, var(--field-dot) 3.2px, transparent 3.6px) 0 0 / 14px 14px, var(--field);
+  color: var(--hero-ink);
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--tilt)), 0 100%); /* the bottom edge runs along the tape */
+}
+/* The first tape is the hero's bottom border: its centerline sits on the slanted edge. */
+.edge {
+  position: relative;
+  z-index: 3;
+  margin-top: calc(var(--tilt) / -2);
+  translate: 0 -50%;
+}
+
+.deco { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; color: var(--field-fleur); }
+.star { fill: var(--star); }
+.hero > :is(.ransom, .sub, .labelWrap, .cta) { position: relative; z-index: 1; }
+
+@media (min-width: 761px) {
+  .ransom { font-size: min(11vw, 180px); }
+}
+.sub {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 12px;
+  margin: 4px 0 0;
+  font-size: clamp(22px, 3.2vw, 38px);
+  text-shadow: 3px 3px 0 var(--c-ink);
+  rotate: -1.5deg;
+}
+.subFleur { width: .9em; height: .9em; color: var(--highlight); filter: drop-shadow(2px 2px 0 var(--c-ink)); }
+
+/* The confluence: the rivers are drawn around the coin's center, so they always meet under it. */
+.confluence { position: relative; width: var(--coin); aspect-ratio: 1; }
+.rivers {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  overflow: visible;
+  pointer-events: none;
+  scale: var(--river-scale);
+}
+.rivers path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.riverEdge { stroke: var(--river-edge); stroke-width: 120px; }
+.river,
+.riverMis { stroke-width: 82px; }
+.river { stroke: var(--river); }
+.riverMis { stroke: var(--river-mis); translate: 10px 7px; mix-blend-mode: var(--blend); }
+.riverGlow { stroke: var(--river-glow); stroke-width: 5px; }
+
+.coin {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  perspective: 900px;
+  transition: scale .25s cubic-bezier(.3, 1.6, .5, 1);
+}
+.coin:hover { scale: 1.07; }
+.coin:active { scale: .96; }
+.coinTurn {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateY(calc(var(--night) * 180deg));
+  transition: transform .9s cubic-bezier(.3, 1.25, .5, 1);
+}
+.face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 6px solid;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.face svg { width: 64%; height: auto; }
+.dayFace {
+  border-color: var(--c-ink);
+  background: radial-gradient(circle at 34% 28%, #fff1b8 0 8%, #ffd650 30%, var(--c-gold) 55%, #d99a00);
+  color: var(--c-blue);
+  box-shadow: inset 0 0 0 7px rgb(255 255 255 / .35), inset 0 -8px 16px rgb(0 0 0 / .18), 6px 7px 0 var(--c-ink);
+}
+.dayFace svg { filter: drop-shadow(2px 2px 0 rgb(0 0 0 / .2)); }
+.nightFace {
+  border-color: var(--c-cream);
+  background: radial-gradient(circle at 34% 28%, #4a4170 0 8%, #2a2445 38%, var(--c-nite) 72%);
+  color: var(--c-yellow);
+  box-shadow: inset 0 0 0 7px rgb(245 236 217 / .12), 6px 7px 0 var(--c-pink), 0 0 40px rgb(63 209 255 / .3);
+  transform: rotateY(180deg);
+}
+.nightFace svg { filter: drop-shadow(4px 3px 0 var(--c-pink)); }
+
+.labelWrap { width: min(1120px, 100%); filter: drop-shadow(7px 9px 0 rgb(0 0 0 / .35)); rotate: -1.2deg; }
+.label {
+  padding: 16px 3vw 8px;
+  background: var(--label-bg);
+  clip-path: polygon(0 6%, 4% 0, 12% 5%, 24% 1%, 38% 6%, 52% 0, 66% 5%, 80% 1%, 92% 6%, 100% 2%, 99% 94%, 90% 100%, 76% 95%, 62% 100%, 48% 95%, 34% 100%, 20% 95%, 8% 100%, 0 96%);
+}
+.label .kinetic { margin: 0; font-size: clamp(44px, 8.4vw, 128px); }
+
+.cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 76px; margin-top: 14px; }
+.btn { background: var(--highlight); color: var(--dark); }
+.note {
+  position: relative;
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(21px, 2.3vw, 28px);
+  font-weight: 600;
+  line-height: 1;
+  text-align: left;
+  text-shadow: 2px 2px 0 var(--c-ink);
+  rotate: -4deg;
+}
+.noteArrow { position: absolute; left: -66px; top: 4px; width: 60px; rotate: 180deg; }
+.hint {
+  position: absolute;
+  z-index: 1;
+  bottom: calc(var(--tilt) / 2 + 64px); /* clear of the edge tape */
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  translate: -50% 0;
+  font-size: 14px;
+  white-space: nowrap;
+  text-shadow: 2px 2px 0 var(--c-ink);
+}
+.hintFleur { flex: none; width: 16px; height: 16px; color: var(--highlight); }
+
+/* Hidden notes: revealed by a lens that follows the pointer (useSpotlight). */
+.secrets {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(circle 200px at var(--mx, -999px) var(--my, -999px), var(--lens), transparent 70%);
+  mask: radial-gradient(circle 170px at var(--mx, -999px) var(--my, -999px), #000 45%, transparent 75%);
+}
+.secret {
+  position: absolute;
+  color: var(--secret-4);
+  font-size: clamp(18px, 1.9vw, 26px);
+  white-space: nowrap;
+  text-shadow: 2px 2px 0 var(--secret-shadow);
+}
+.secret:nth-child(4n + 1) { color: var(--secret-1); }
+.secret:nth-child(4n + 2) { color: var(--secret-2); }
+.secret:nth-child(4n + 3) { color: var(--secret-3); }
+.s1 { left: 3%; bottom: calc(var(--tilt) + 76px); rotate: -3deg; }
+.s2 { left: 30%; top: 12px; rotate: 2deg; }
+.s3 { left: 5%; bottom: calc(var(--tilt) + 116px); display: flex; align-items: center; gap: 6px; rotate: -4deg; }
+.s3 svg { width: 56px; }
+.s4 { left: 3%; top: 12px; rotate: -4deg; }
+.s5 { left: 10px; top: 40%; writing-mode: vertical-rl; rotate: 180deg; }
+.s6 { right: 10px; top: 36%; writing-mode: vertical-rl; }
+.s7 { right: 24%; top: 12px; rotate: 2deg; }
+.s8 { right: 3%; bottom: calc(var(--tilt) + 76px); rotate: -2deg; }
+.s9 { right: 8%; top: 8px; width: 56px; height: 56px; color: var(--highlight); }
+.s9 svg { width: 100%; height: 100%; }
+
+/* Touch screens have no pointer to find them with, so the notes surface on their own. */
+@media (hover: none) {
+  .secrets { background: none; mask: none; }
+  .secret { opacity: 0; animation: surface var(--cycle) ease-in-out var(--delay) infinite; }
+}
+@keyframes surface {
+  0%, 44%, 100% { opacity: 0; }
+  12%, 32% { opacity: 1; }
+}
+@media (hover: none) and (prefers-reduced-motion: reduce) {
+  .secret { opacity: 1; }
+}
+
+@media (max-width: 960px) {
+  .hero { --river-scale: .75; }
+}
+@media (max-width: 760px) {
+  .hero { --river-scale: .55; padding: 40px 12px calc(var(--tilt) + 150px); } /* room for a note between the CTA and the hint */
+  .cta { gap: 14px; }
+  .noteArrow { display: none; }
+  .note { text-align: center; }
+  .hint { width: 92%; flex-wrap: wrap; justify-content: center; font-size: 11px; line-height: 1.4; white-space: normal; }
+  .hintFleur { display: none; }
+  .face { border-width: 4px; }
+  .s3, .s4, .s5, .s6, .s8, .s9 { display: none; }
+  .secret { font-size: 17px; }
+  .s1 { left: 4%; bottom: calc(var(--tilt) / 2 + 112px); }
+  .s2 { left: 4%; top: 12px; }
+  .s7 { left: auto; right: 4%; top: 12px; }
+}

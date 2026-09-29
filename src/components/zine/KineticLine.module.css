@@ -1,0 +1,48 @@
+.line {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 1.72em;
+  margin: 18px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font-family: var(--f-kin), sans-serif;
+  font-size: clamp(50px, 11.5vw, 170px);
+  line-height: .84;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  contain: layout;
+  touch-action: pan-y;
+  mix-blend-mode: var(--blend);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.main,
+.echo {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+}
+.main { color: var(--ink-a); }
+.echo {
+  color: var(--ink-b);
+  mix-blend-mode: var(--blend);
+  translate: .04em .035em;
+  animation: jitter 2.6s steps(1) infinite;
+}
+@keyframes jitter {
+  0%, 100% { translate: .04em .035em; }
+  33% { translate: .048em .028em; }
+  66% { translate: .034em .042em; }
+}
+.row { display: block; white-space: nowrap; }
+.char {
+  display: inline-block;
+  font-stretch: calc(58% + var(--p) * 82%);
+  font-weight: calc(620 + var(--p) * 280);
+}
+.space { width: .28em; }

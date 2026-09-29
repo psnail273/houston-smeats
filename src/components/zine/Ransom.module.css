@@ -1,0 +1,64 @@
+.ransom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(4px, 1vw, 14px);
+  font-size: clamp(58px, 14.5vw, 224px);
+  line-height: 1;
+}
+.letter {
+  --pop-dur: .6s;
+  position: relative;
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  filter: drop-shadow(.035em .04em 0 var(--shade));
+  rotate: calc(var(--tilt) * 1deg);
+  translate: 0 calc(var(--drop) * 1px);
+  transition: translate .25s cubic-bezier(.3, 1.6, .5, 1), rotate .25s cubic-bezier(.3, 1.6, .5, 1);
+}
+.letter:hover { translate: 0 calc(var(--drop) * 1px - 16px); rotate: calc(var(--tilt) * -1deg); }
+.letter:active { translate: 0 calc(var(--drop) * 1px - 4px); }
+.paper {
+  display: block;
+  padding: .07em .13em .03em;
+  clip-path: var(--clip);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: calc(var(--scale) * 1em);
+}
+.newsprint {
+  background: repeating-linear-gradient(0deg, transparent 0 7px, rgb(26 18 16 / .13) 7px 8px),
+    radial-gradient(circle, rgb(26 18 16 / .16) 30%, transparent 32%) 0 0 / 5px 5px, var(--bg);
+}
+.recut { animation: recut .5s cubic-bezier(.2, 1.5, .35, 1) both; }
+@keyframes recut {
+  0% { scale: 1.45; rotate: -14deg; opacity: .3; }
+  60% { scale: .92; rotate: 5deg; opacity: 1; }
+  100% { scale: 1; rotate: 0deg; }
+}
+.scraps { position: absolute; left: 50%; top: 50%; width: 0; height: 0; pointer-events: none; }
+.scraps i {
+  position: absolute;
+  left: -.06em;
+  top: -.05em;
+  width: .13em;
+  height: .1em;
+  background: var(--ink-1);
+  transform: rotate(calc(var(--k) * 45deg));
+  animation: scrap .75s cubic-bezier(.2, .7, .3, 1) forwards;
+}
+.scraps i:nth-child(3n + 1) { background: var(--highlight); }
+.scraps i:nth-child(3n + 2) { background: var(--ink-2); }
+@keyframes scrap {
+  to { transform: rotate(calc(var(--k) * 45deg)) translateY(-1.05em) rotate(260deg) scale(.5); opacity: 0; }
+}
+
+@media (max-width: 760px) {
+  .ransom { flex-wrap: nowrap; gap: 3px; font-size: 11.6vw; }
+}
